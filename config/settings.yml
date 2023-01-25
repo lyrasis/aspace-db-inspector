@@ -1,0 +1,8 @@
+---
+# defaults
+database:
+  adapter: mysql2
+  host: 127.0.0.1
+  username: as
+  password: as123
+  database: archivesspace

@@ -9,17 +9,18 @@ namespace :db do
   task :check_dates_dst, %i[] => :connect do |_t, _args|
     find_columns_for_type('datetime').each do |table, datetime|
       query = ActiveRecord::Base.sanitize_sql_array(
-        ['SELECT %s FROM `%s`', datetime.name, table]
+        ['SELECT id, %s FROM `%s`', datetime.name, table]
       )
       results = ActiveRecord::Base.connection.execute(query)
       next unless results.any?
 
-      results.map(&:first).each do |result|
+      results.each do |row|
+        id, result = row
         result_date = result.to_datetime unless result.nil?
         next if result_date.nil?
         next unless suspicious_date?(result_date)
 
-        puts [table, datetime.name, result_date, result_date.year, result_date.month, result_date.hour].to_csv
+        puts [table, datetime.name, id, result_date, result_date.year, result_date.month, result_date.hour].to_csv
       end
     end
   end

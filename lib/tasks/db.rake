@@ -9,7 +9,8 @@ namespace :db do
   task :check_dates_dst, %i[] => :connect do |_t, _args|
     find_columns_for_type('datetime').each do |table, datetime|
       query = ActiveRecord::Base.sanitize_sql_array(
-        ['SELECT id, %s FROM `%s`', datetime.name, table]
+        ['SELECT id, %s FROM `%s` WHERE MONTH(%s) = 3 AND HOUR(%s) = 2', datetime.name, table, datetime.name,
+         datetime.name]
       )
       results = ActiveRecord::Base.connection.execute(query)
       next unless results.any?

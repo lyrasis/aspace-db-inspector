@@ -20,6 +20,6 @@ And set the database connection configuration as required.
 ## Setup
 
 ```bash
-bundle exec rake connect # no output if connection is ok
+bundle exec rake db:connect # no output if connection is ok
 bundle exec rake db:check_dates_dst
 ```

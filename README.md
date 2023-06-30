@@ -5,7 +5,7 @@ Pre-reqs:
 - [Ruby](#)
 
 ```bash
-sudo apt install libmysqlclient-dev
+sudo apt install libmysqlclient-dev # or `brew install mysql-client`
 bundle install
 ```
 
